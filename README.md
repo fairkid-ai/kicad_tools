@@ -1,6 +1,9 @@
 
 # KiCad EDA 生产文件生成器
 
+现已支持KiCad 6.0. 当直接从PCB更新原理图时，生成的BOM表会缺少Datasheet信息，解决办法，在原理图中生成网表。
+
+Not support KiCad 6.0. When update PCB from schematic directly, datasheet field will miss. Generate netlist in schematic to sovle it.
 
 ## 中文说明
 
