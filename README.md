@@ -5,7 +5,15 @@
 
 Not support KiCad 6.0. When update PCB from schematic directly, datasheet field will miss. Generate netlist in schematic to solve it.
 
-v## 中文说明
+与JLCPCB和JLCKicadTools不同的是，这个工具只根据已有的器件信息来生成生产文件，不会调整器件的角度或是元件号。因此要求在设计原理图的时候就使用jlc.com上的器件信息，才能保证生成的文件能直接在jlc.com中制作。
+* 一些常用的jlc.com器件库[lc_kicad_lib](https://github.com/xtoolbox/lc_kicad_lib)
+* 从lceda.cn中复制器件和封装库[lckiconverter](https://github.com/xtoolbox/lckiconverter)
+
+Unlike JLCPCB and JLCKicadTools, this tool only generates fabrication files based on existing device information and does not adjust the angle or part number of the device. Therefore, it is required to use the component information on the jlc.com when designing the schematic to ensure that the generated file can be directly used at jlc.com.
+* Some common used jlc.com library[lc_kicad_lib](https://github.com/xtoolbox/lc_kicad_lib)
+* Get KiCad symobl/footprint from lceda.cn [lckiconverter](https://github.com/xtoolbox/lckiconverter)
+
+## 中文说明
 
 本插件可一键生成 PCB 的 Gerber、钻孔、BOM 物料清单、坐标文件。
 
@@ -43,8 +51,6 @@ GenMFDoc() 会改变电路板的钻孔原点，建议先用GenMFDoc() 生成 BOM
 ### 参考
 
 KiCad plot tool is forked from "https://github.com/blairbonnett-mirrors/kicad/blob/master/demos/python_scripts_examples/gen_gerber_and_drill_files_board.py"
-
-S-Expression parse tool is forked from https://github.com/tkf/sexpdata
 
 
 # Manufacture Tools for kicad
