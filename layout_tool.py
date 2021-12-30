@@ -27,13 +27,13 @@ def MakeRefs(refs):
             start_s = ts[:ps]
             end_s = ts[ps+1:]
             if (not start_s.isdigit()) or (not end_s.isdigit()):
-                print 'Ref not Digital value'
+                print('Ref not Digital value')
             else:
                 for i in range(int(start_s), int(end_s)+1):
                     ref_list.append(prefix+str(i))
         else:
             if not ts.isdigit():
-                print 'Ref not Digital value'
+                print('Ref not Digital value')
             else:
                 ref_list.append(prefix+ts)
     return ref_list

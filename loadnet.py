@@ -1,14 +1,40 @@
-import kisexp as sexp
+from . import kisexp as sexp
 import pcbnew as pn
 import io
 import traceback
+import os
 
 def loadNet(brd = None):
     if not brd:
         brd = pn.GetBoard()
     name = brd.GetFileName()
     name = name[0:name.rindex('.')] + '.net'
-    return loadNetFile(name)
+    if os.path.exists(name):
+        return loadNetFile(name)
+    if hasattr(brd, "GetFootprints"):
+        print("File not exist, try to get info from footprint", name)
+        r = {}
+        for fp in brd.GetFootprints():
+            c = parseFootprint(fp)
+            r[c['value'] + "&" + c['footprint']] = c
+        return r
+    return {}
+def parseFootprint(fp):
+    r = {}
+    prop = fp.GetProperties()
+    r['value'] = fp.GetValue()
+    r['footprint'] = str(fp.GetFPID().GetLibItemName())
+    if "Datasheet" in prop:
+        r['datasheet'] = prop["Datasheet"]
+    if "SuppliersPartNumber" in prop:
+        r['partNumber'] = prop["SuppliersPartNumber"]
+    if "Comment" in prop:
+        if prop["Comment"] != "":
+            r['comment'] = prop["Comment"]
+    if "description" in prop:
+        if prop["description"] != "":
+            r['description'] = prop["description"]
+    return r
 
 def toStr(v):
     return v
@@ -16,7 +42,7 @@ def toStr(v):
 def parseComp(comp):
     r = {}
     if comp[0] != "comp":
-        print "Parse comp error"
+        print("Parse comp error")
         return None
     for i in range(1, len(comp)):
         key = comp[i][0]
@@ -56,7 +82,7 @@ def loadNetFile(fileName):
             r[c['value'] + "&" + c['footprint']] = c
         return r
     except Exception as e:
-        print "Fail to load netlist:"
+        print("Fail to load netlist:")
         traceback.print_exc()
         return None
             

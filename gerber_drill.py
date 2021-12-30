@@ -31,7 +31,7 @@ def def_logger(*args):
     r = ""
     for t in args:
         r = r + str(t) + " "
-    print r
+    print(r)
 def GenGerberDrill(board = None, split_G85 = 0.2, plotDir = "plot/", plotReference = True, logger = def_logger):
 	if not board:
 		board = GetBoard()
@@ -46,14 +46,15 @@ def GenGerberDrill(board = None, split_G85 = 0.2, plotDir = "plot/", plotReferen
 
 	# Set some important plot options:
 	popt.SetPlotFrameRef(False)     #do not change it
-	popt.SetLineWidth(FromMM(0.35))
+	if hasattr(popt, "SetLineWidth"):
+		popt.SetLineWidth(FromMM(0.35))
 
 	popt.SetAutoScale(False)        #do not change it
 	popt.SetScale(1)                #do not change it
 	popt.SetMirror(False)
 	popt.SetUseGerberAttributes(True)
 	popt.SetUseGerberProtelExtensions(False)
-	popt.SetExcludeEdgeLayer(True);
+	popt.SetExcludeEdgeLayer(True)
 	popt.SetScale(1)
 	popt.SetUseAuxOrigin(True)
 	popt.SetPlotReference(plotReference)
@@ -110,10 +111,14 @@ def GenGerberDrill(board = None, split_G85 = 0.2, plotDir = "plot/", plotReferen
 	mirror = False
 	minimalHeader = False
 	# offset = wxPoint(0,0)
-	offset = board.GetAuxOrigin()
+	if hasattr(board, "GetAuxOrigin"):
+		offset = board.GetAuxOrigin()
+	else:
+		offset = board.GetDesignSettings().GetAuxOrigin()
 	# False to generate 2 separate drill files (one for plated holes, one for non plated holes)
 	# True to generate only one drill file
 	mergeNPTH = False
+	logger("set drill offset ", offset)
 	drlwriter.SetOptions( mirror, minimalHeader, offset, mergeNPTH )
 
 	metricFmt = True
@@ -126,7 +131,7 @@ def GenGerberDrill(board = None, split_G85 = 0.2, plotDir = "plot/", plotReferen
 
 	# One can create a text file to report drill statistics
 	#rptfn = pctl.GetPlotDirName() + 'drill_report.rpt'
-	#print 'report: %s' % rptfn
+	#print('report: %s' % rptfn)
 	#drlwriter.GenDrillReportFile( rptfn );
 	
 	if split_G85:
@@ -266,7 +271,7 @@ def SplitSlotInDrill(drillPath, newfilename = True,step = 0.2):
 					hn,hs = HoleSize(line)
 					if hn and hs:
 						holes[hn+'\n'] = hs
-					if holes.has_key(line):
+					if line in holes:
 						curHolesSize = holes[line]
 					step = 0.2
 					if curHolesSize:
