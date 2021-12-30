@@ -3,7 +3,7 @@
 
 现已支持KiCad 6.0. 当直接从PCB更新原理图时，生成的BOM表会缺少Datasheet信息，解决办法，在原理图中生成网表。
 
-Not support KiCad 6.0. When update PCB from schematic directly, datasheet field will miss. Generate netlist in schematic to solve it.
+Now support KiCad 6.0. When update PCB from schematic directly, datasheet field will miss. Generate netlist in schematic to solve it.
 
 与JLCPCB和JLCKicadTools不同的是，这个工具只根据已有的器件信息来生成生产文件，不会调整器件的角度或是元件号。因此要求在设计原理图和使用封装的时候使用jlc.com上的器件信息，才能保证生成的文件能直接在jlc.com中制作。
 * 一些常用的jlc.com器件库[lc_kicad_lib](https://github.com/xtoolbox/lc_kicad_lib)
@@ -42,7 +42,7 @@ Unlike JLCPCB and JLCKicadTools, this tool only generates fabrication files base
 
 BOM 文件和坐标文件会以 CSV 格式存放在电路板同级目录下，Gerber 和钻孔文件放在电路板目录下的 gerber 目录中，通过 `Split Slot` 选项生成的钻孔文件中的槽孔会被转换成多个普通孔。
 
-生成的文件可以直接在 sz-jlc.com 进行贴装。
+生成的文件可以直接在 jlc.com 进行贴装。
 
 ### 注意事项
 
