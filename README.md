@@ -3,9 +3,9 @@
 
 现已支持KiCad 6.0. 当直接从PCB更新原理图时，生成的BOM表会缺少Datasheet信息，解决办法，在原理图中生成网表。
 
-Not support KiCad 6.0. When update PCB from schematic directly, datasheet field will miss. Generate netlist in schematic to sovle it.
+Not support KiCad 6.0. When update PCB from schematic directly, datasheet field will miss. Generate netlist in schematic to solve it.
 
-## 中文说明
+v## 中文说明
 
 本插件可一键生成 PCB 的 Gerber、钻孔、BOM 物料清单、坐标文件。
 
