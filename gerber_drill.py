@@ -58,6 +58,10 @@ def GenGerberDrill(board = None, split_G85 = 0.2, plotDir = "plot/", plotReferen
 	popt.SetScale(1)
 	popt.SetUseAuxOrigin(True)
 	popt.SetPlotReference(plotReference)
+	
+	if hasattr(popt, "SetDrillMarksType"):
+		popt.SetDrillMarksType(0)
+		
 
 	# This by gerbers only (also the name is truly horrid!)
 	popt.SetSubtractMaskFromSilk(False)
