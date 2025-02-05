@@ -21,7 +21,10 @@ def loadNet(brd = None):
     return {}
 def parseFootprint(fp):
     r = {}
-    prop = fp.GetProperties()
+    if hasattr(fp, "GetFields"):
+        prop = fp.GetFields()
+    else:
+        prop = fp.GetProperties()
     r['value'] = fp.GetValue()
     r['footprint'] = str(fp.GetFPID().GetLibItemName())
     if "Datasheet" in prop:

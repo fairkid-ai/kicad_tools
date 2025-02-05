@@ -483,7 +483,10 @@ class POSItem:
             print('Pad1 not found for mod')
             self.PadX = self.MidX
             self.PadY = self.MidY
-        self.rot = int(mod.GetOrientation()/10)
+        if hasattr(mod, "GetOrientationDegrees"):
+            self.rot = int(mod.GetOrientationDegrees())
+        else:
+            self.rot = int(mod.GetOrientation()/10)
         self.ref = mod.GetReference()
         self.val = mod.GetValue()
         self.layer = layerName(mod.GetLayer())
@@ -618,6 +621,7 @@ def GenMFDoc(SplitTopAndBottom = False, ExcludeRef = [], ExcludeValue = [], brd 
         return
     bound = GetBoardBound(brd)
     org_pt = pcbnew.wxPoint( bound.GetLeft(), bound.GetBottom())
+    org_pt = pcbnew.VECTOR2I(org_pt.x, org_pt.y)
     logger("set board aux origin to left bottom point, at", org_pt)
     if hasattr(brd, 'SetAuxOrigin'):
         brd.SetAuxOrigin(org_pt)
